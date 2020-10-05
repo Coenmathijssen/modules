@@ -1,0 +1,23 @@
+{
+  "name": "modules",
+  "version": "1.0.0",
+  "description": "Internal research of specific modules",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel ./src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coenmathijssen/modules.git"
+  },
+  "author": "Coen Mathijssen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Coenmathijssen/modules/issues"
+  },
+  "homepage": "https://github.com/Coenmathijssen/modules#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
