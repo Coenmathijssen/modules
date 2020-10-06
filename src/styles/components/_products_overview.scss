@@ -3,11 +3,12 @@
     z-index: 2;
 
     .container {
-        background-color: color(broken-white);
         padding: 2em 5% 2em 5%;
         width: calc(100% - 10%);
-        height: 100vh;
+        height: calc(100vh - 4em);
         overflow: scroll;
+        background-color: color(broken-white);
+        border-radius: 40px;
 
         .header {
             display: flex;

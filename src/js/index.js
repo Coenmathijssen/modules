@@ -1,5 +1,7 @@
 import {TimelineMax, TweenMax, Power2 } from 'gsap/all'
-import { Tween } from 'gsap/gsap-core'
+// import { Tween } from 'gsap/gsap-core'
+
+let timeOut
 
 let addToCartButtons = document.querySelectorAll('.item__add-to-cart')
 addToCartButtons = Array.from(addToCartButtons)
@@ -25,19 +27,31 @@ function addToBasket (target) {
     item.classList.add('shopping_cart_small__item')
     TweenMax.set(item, { opacity: 0 })
     item.appendChild(newImage)
+
+    // Shopping cart small - The height is needed for the product overview lift up
+    const shoppingCartSmall = document.querySelector('.shopping_cart_small')
+    const shoppingCartSmallHeight = shoppingCartSmall.offsetHeight
+
+    TweenMax.to('.products_overview', 0.5, { y: '-' + (shoppingCartSmallHeight - 40), ease: Power2.easeOut })
+
+    clearTimeout(timeOut)
+    
+    timeOut = setTimeout(() => {
+        TweenMax.to('.products_overview', 0.5, { y: 0, ease: Power2.easeOut })
+    }, 4000);
     
     // Add item to shopping cart
     appendToShoppingCartSmall(item)
 
     // Animate
     const fivePlus = document.querySelector('.five-plus')
-    fivePlus ? animateImage(fivePlus, image, floatingImage) : animateImage(item, image, floatingImage)
+    fivePlus ? animate(fivePlus, image, floatingImage) : animate(item, image, floatingImage)
 
     // Update total
     updateTotal()
 } 
 
-function animateImage (item, image, floatingImage) {
+function animate (item, image, floatingImage) {
     // Adding the right styling
     floatingImage.classList.add('floating-image')
 
@@ -59,7 +73,7 @@ function animateImage (item, image, floatingImage) {
     
     tl
     .set(floatingImage, { left: startLeft, top: startTop, width: startWidth })
-    .to(floatingImage, 1, { left: endLeft, top: endTop, width: endWidth })
+    .to(floatingImage, 0.8, { left: endLeft, top: endTop, width: endWidth, ease: Power2.easeOut })
     .call(removeElement(floatingImage))
     .to(item, 0.3, { opacity: 1 }, "-=0.1")
 }

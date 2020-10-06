@@ -2,11 +2,11 @@
     position: absolute;
     width: 100%;
     bottom: 0;
-    z-index: 4;
+    z-index: 1;
 
     .container {
         width: calc(100% - 10%);
-        padding: 2em 5% 2em 5%;
+        padding: 5em 5% 2em 5%;
         display: flex;
         justify-content: space-between;
         align-items: center;
