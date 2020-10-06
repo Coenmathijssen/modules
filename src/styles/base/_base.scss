@@ -1,0 +1,63 @@
+html,
+body,
+main {
+  overscroll-behavior-y: none;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+body {
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  background-color: grey;
+
+  &.has-no-pointer-events {
+    * {
+      pointer-events: none !important;
+    }
+  }
+
+  font-size: 12px;
+
+  @include b1200 {
+    font-size: 14px;
+  }
+  
+  @include b1400 {
+    font-size: 16px;
+  }
+
+  @include b1600 {
+    font-size: 18px;
+  }
+
+  @include b2200 {
+    font-size: 20px;
+  }
+}
+
+[data-scroll-wrapper],
+[data-will-change],
+[data-parallax] {
+  will-change: transform;
+}
+
+// ::-moz-selection {
+//   background: transparent;
+// }
+
+// ::selection {
+//   background: transparent;
+// }
+
+.wrapper {
+  background-color: color(broken-white);
+  border-radius: 40px;
+  height: 100vh;
+  overflow: scroll;
+}

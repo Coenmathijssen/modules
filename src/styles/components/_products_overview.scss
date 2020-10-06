@@ -1,0 +1,170 @@
+.products_overview {
+    position: relative;
+    z-index: 2;
+
+    .container {
+        background-color: color(broken-white);
+        padding: 2em 5% 2em 5%;
+        width: calc(100% - 10%);
+        height: 100vh;
+        overflow: scroll;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 3em;
+
+            &__text-container {
+                .title {
+                    margin-bottom: 0.3em;
+                    font-weight: 600;
+                    font-size: 2em;
+                    line-height: 0.8em;
+                }
+
+                .undertitle {
+                    font-size: 1em;
+                    opacity: 0.7;
+                }
+            }
+
+            &__nav {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 25px;
+                height: 15px;
+                
+                span {
+                    height: 2px;
+                    background-color: color(black);
+
+                    &:first-of-type {
+                        width: 70%;
+                        align-self: flex-start;
+                    }
+
+                    &:last-of-type {
+                        width: 70%;
+                        align-self: flex-end;
+                    }
+                }
+            }
+        }
+    }
+
+    .items {
+        &__container {
+            width: 100%;
+            padding-top: 1em;
+            display: flex;
+            justify-content: space-between;
+
+            .row {
+                width: calc(50% - 10px);
+
+                &:first-of-type {
+                    margin-right: 5px;
+                    padding-top: 4em;
+                }
+
+                &:last-of-type {
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .item {
+            position: relative;
+            width: 100%;
+            padding-top: 20px;
+            background-color: color(metalic);
+            border-radius: 20px;
+            align-self: flex-start;
+            margin: 2em 0;
+
+            &__image-container {
+                transform: translateY(-25px);
+
+                img {
+                    position: relative;
+                    width: 100%;
+                    z-index: 999;
+                }
+            }
+
+            &__text-container {
+                padding-left: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+
+            &__product-name {
+                // width: calc(50% + 40px);
+                font-size: 1.2em;
+                color: color(black);
+                font-weight: 600;
+                line-height: 1.2em;
+            }
+
+            &__product-price {
+                position: relative;
+                padding: 5px;
+                color: color(white);
+                background-color: rgba(0,0,0,0.9);
+                font-weight: 600;
+                border-radius: 4px;
+                transform: translate(10px, 0);
+                max-width: 55px;
+
+                &::before {
+                    content: '€';
+                    
+                }
+            }
+
+            &__add-to-cart {
+                padding: 5px;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 15px;
+                height: 15px;
+                border: solid 1px color(black);
+                border-bottom-right-radius: 20px;
+
+                span {
+                    width: 40%;
+                    height: 2px;
+                    position: absolute;
+                    left: 45%;
+                    top: 42%;
+                    transform: translate(-50%, -50%);
+                    background-color: color(black);
+
+                    &:first-of-type {
+                        transform: translate(-50%, -50%) rotate(90deg);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.test {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 0;
+    top: 0;
+    background-color: red;
+    z-index: 9999;
+}
+
+.floating-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+}
