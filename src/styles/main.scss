@@ -1,5 +1,25 @@
-@import './base/colors.scss';
+@import 'base/reset';
+@import 'utilities/mixins/colors';
+@import 'utilities/mixins/grid';
+@import 'utilities/mixins/breakpoints';
+@import 'utilities/mixins/flex';
+@import 'utilities/mixins/typography';
+@import 'utilities/variables/colors';
+@import 'utilities/variables/breakpoints';
+@import 'utilities/variables/grid';
+@import 'utilities/variables/typography';
+@import 'utilities/helpers/background';
+@import 'utilities/helpers/grid';
+@import 'utilities/helpers/typography';
+@import 'utilities/helpers/flex';
+@import 'utilities/helpers/spacings';
 
-body {
-    background-color: $black;
-}
+@import 'base/breakpoints';
+@import 'base/base';
+@import 'base/fonts';
+@import 'base/typography';
+@import 'base/grid';
+@import 'base/helpers';
+
+@import 'components/products_overview.scss';
+@import 'components/shopping_cart_small.scss';
