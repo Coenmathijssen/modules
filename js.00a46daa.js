@@ -14091,8 +14091,8 @@ exports.default = exports.gsap = gsapWithCSS;
 
 var _all = require("gsap/all");
 
-// import { Tween } from 'gsap/gsap-core'
 var timeOut;
+var totalPrice = 0;
 var addToCartButtons = document.querySelectorAll('.item__add-to-cart');
 addToCartButtons = Array.from(addToCartButtons);
 
@@ -14106,10 +14106,12 @@ if (addToCartButtons.length > 0) {
 
 function addToBasket(target) {
   // Selecting the right elements (images and names of shoes) and cloning them
-  var image = target.parentNode.previousElementSibling.firstElementChild;
-  var name = target.parentNode.previousElementSibling.previousElementSibling.firstElementChild;
+  var image = target.parentNode.parentNode.querySelector('.item__image-container').querySelector('img');
+  var name = target.parentNode.parentNode.querySelector('.item__text-container').querySelector('.item__product-name');
+  var price = target.parentNode.parentNode.querySelector('.item__text-container').querySelector('.item__product-price');
   var newImage = image.cloneNode(true);
   var newName = name.cloneNode(true);
+  var newPrice = price.cloneNode(true);
   var floatingImage = image.cloneNode(true); // Create div, give the right class and append the chosen image to it
 
   var item = document.createElement('div');
@@ -14124,10 +14126,16 @@ function addToBasket(target) {
   var shoppingCartSmall = document.querySelector('.shopping_cart_small');
   var shoppingCartSmallHeight = shoppingCartSmall.offsetHeight;
 
+  _all.TweenMax.to('.shopping_cart_large', 0.5, {
+    y: '100%',
+    ease: _all.Power2.easeOut
+  });
+
   _all.TweenMax.to('.products_overview', 0.5, {
     y: '-' + (shoppingCartSmallHeight - 40),
     ease: _all.Power2.easeOut
-  });
+  }); // Wait for 4 seconds to animate shopping cart small out. Reset this timer if another item is added
+
 
   clearTimeout(timeOut);
   timeOut = setTimeout(function () {
@@ -14135,17 +14143,21 @@ function addToBasket(target) {
       y: 0,
       ease: _all.Power2.easeOut
     });
-  }, 4000); // Add item to shopping cart
+  }, 4000); // Add item to shopping cart small
 
-  appendToShoppingCartSmall(item); // Animate
+  appendToShoppingCartSmall(item); // Add item to shopping cart large
+
+  appendToShoppingCartLarge(newImage, newName, newPrice); // update total price
+
+  updateTotalPrice(newPrice); // Animate
 
   var fivePlus = document.querySelector('.five-plus');
-  fivePlus ? animate(fivePlus, image, floatingImage) : animate(item, image, floatingImage); // Update total
+  fivePlus ? animateImage(fivePlus, image, floatingImage) : animateImage(item, image, floatingImage); // Update total items
 
-  updateTotal();
+  updateTotalItems();
 }
 
-function animate(item, image, floatingImage) {
+function animateImage(item, image, floatingImage) {
   // Adding the right styling
   floatingImage.classList.add('floating-image'); // Get x and y of starting position
 
@@ -14191,7 +14203,7 @@ function appendToShoppingCartSmall(item) {
   }
 }
 
-function updateTotal() {
+function updateTotalItems() {
   var shoppingCartItems = document.querySelectorAll('.shopping_cart_small__item');
   shoppingCartItems = Array.from(shoppingCartItems);
   var total = document.querySelector('.shopping_cart_small__total');
@@ -14206,6 +14218,145 @@ function removeElement(element) {
   return function () {
     element.parentNode.removeChild(element);
   };
+}
+
+function appendToShoppingCartLarge(image, name, price) {
+  var shoppingCartLarge = document.querySelector('.shopping_cart_large__items');
+
+  if (shoppingCartLarge) {
+    var newImage = image.cloneNode(true);
+    var item = document.createElement('div');
+    item.classList.add('item');
+    var left = document.createElement('div');
+    left.classList.add('left');
+    var imageContainer = document.createElement('div');
+    imageContainer.classList.add('image-container');
+    imageContainer.appendChild(newImage);
+    left.appendChild(imageContainer);
+    left.appendChild(name);
+    item.appendChild(left);
+    item.appendChild(price);
+    shoppingCartLarge.appendChild(item);
+  }
+}
+
+function updateTotalPrice(price) {
+  if (price) {
+    price = convertToNumber(price.textContent);
+    price > 0 ? totalPrice = roundToTwoDecimals(totalPrice, price) : totalPrice = totalPrice;
+    document.querySelector('.total').textContent = totalPrice;
+  }
+}
+
+function convertToNumber(string) {
+  var number = parseFloat(string.replace(/,/g, '.'));
+  return number;
+}
+
+function roundToTwoDecimals(numberOne, numberTwo) {
+  var roundedNumber = Math.round((numberOne + numberTwo + Number.EPSILON) * 100) / 100;
+  return roundedNumber;
+} // Listen for swipe events
+
+
+var shoppingCartSmall = document.querySelector(".shopping_cart_small");
+var shoppingCartLarge = document.querySelector(".shopping_cart_large");
+shoppingCartSmall.addEventListener("touchstart", startTouch, false);
+shoppingCartSmall.addEventListener("touchmove", moveTouch, false);
+shoppingCartLarge.addEventListener("touchstart", startTouch, false);
+shoppingCartLarge.addEventListener("touchmove", moveTouch, false);
+var initialX = null;
+var initialY = null;
+
+function startTouch(e) {
+  initialX = e.touches[0].clientX;
+  initialY = e.touches[0].clientY;
+}
+
+function moveTouch(e) {
+  var swipe;
+
+  if (initialX === null) {
+    return;
+  }
+
+  if (initialY === null) {
+    return;
+  }
+
+  var currentX = e.touches[0].clientX;
+  var currentY = e.touches[0].clientY;
+  var diffX = initialX - currentX;
+  var diffY = initialY - currentY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // sliding horizontally
+    if (diffX > 0) {
+      console.log("swiped left");
+      swipe = 'left';
+    } else {
+      console.log("swiped right");
+      swipe = 'right';
+    }
+  } else {
+    // sliding vertically
+    if (diffY > 0) {
+      console.log("swiped up");
+      swipe = 'up';
+      showShoppingCartLarge();
+    } else {
+      console.log("swiped down");
+      swipe = 'down';
+      hideShoppingCartLarge();
+    }
+  }
+
+  initialX = null;
+  initialY = null;
+  return swipe;
+}
+
+;
+
+function showShoppingCartLarge() {
+  var shoppingCartLarge = document.querySelector('.shopping_cart_large');
+  var shoppingCartLargeHeight = shoppingCartLarge.offsetHeight;
+
+  _all.TweenMax.to(shoppingCartLarge, 0.5, {
+    y: 0,
+    ease: _all.Power2
+  });
+
+  _all.TweenMax.to('.products_overview', 0.4, {
+    y: '-' + (shoppingCartLargeHeight - 40),
+    delay: 0.3,
+    ease: _all.Power2.easeOut
+  });
+
+  clearTimeout(timeOut);
+}
+
+function hideShoppingCartLarge() {
+  var shoppingCartSmall = document.querySelector('.shopping_cart_small');
+  var shoppingCartSmallHeight = shoppingCartSmall.offsetHeight;
+
+  _all.TweenMax.to('.products_overview', 0.5, {
+    y: '-' + (shoppingCartSmallHeight - 40),
+    ease: _all.Power2.easeOut
+  });
+
+  _all.TweenMax.to('.shopping_cart_large', 0.5, {
+    y: '100%',
+    ease: _all.Power2
+  });
+
+  clearTimeout(timeOut);
+  timeOut = setTimeout(function () {
+    _all.TweenMax.to('.products_overview', 0.5, {
+      y: 0,
+      ease: _all.Power2.easeOut
+    });
+  }, 4000);
 }
 },{"gsap/all":"../node_modules/gsap/all.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -14235,7 +14386,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62364" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63629" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
