@@ -14106,16 +14106,19 @@ if (addToCartButtons.length > 0) {
 
 function addToBasket(target) {
   // Selecting the right elements (images and names of shoes) and cloning them
-  var image = target.parentNode.parentNode.querySelector('.item__image-container').querySelector('img');
-  var name = target.parentNode.parentNode.querySelector('.item__text-container').querySelector('.item__product-name');
-  var price = target.parentNode.parentNode.querySelector('.item__text-container').querySelector('.item__product-price');
+  var clickedItem = target.parentNode.parentNode;
+  var image = clickedItem.querySelector('.item__image-container img');
+  var name = clickedItem.querySelector('.item__text-container .item__product-name');
+  var price = clickedItem.querySelector('.item__text-container .item__product-price');
   var newImage = image.cloneNode(true);
   var newName = name.cloneNode(true);
   var newPrice = price.cloneNode(true);
-  var floatingImage = image.cloneNode(true); // Create div, give the right class and append the chosen image to it
+  var floatingImage = image.cloneNode(true);
+  var attribute = clickedItem.getAttribute('item-number'); // Create div, give the right class and atrribute and append the chosen image to it
 
   var item = document.createElement('div');
   item.classList.add('shopping_cart_small__item');
+  item.setAttribute('item-number', attribute);
 
   _all.TweenMax.set(item, {
     opacity: 0
@@ -14147,9 +14150,9 @@ function addToBasket(target) {
 
   appendToShoppingCartSmall(item); // Add item to shopping cart large
 
-  appendToShoppingCartLarge(newImage, newName, newPrice); // update total price
+  appendToShoppingCartLarge(newImage, newName, newPrice, attribute); // update total price
 
-  updateTotalPrice(newPrice); // Animate
+  updateTotalPrice(); // Animate
 
   var fivePlus = document.querySelector('.five-plus');
   fivePlus ? animateImage(fivePlus, image, floatingImage) : animateImage(item, image, floatingImage); // Update total items
@@ -14220,13 +14223,14 @@ function removeElement(element) {
   };
 }
 
-function appendToShoppingCartLarge(image, name, price) {
+function appendToShoppingCartLarge(image, name, price, attribute) {
   var shoppingCartLarge = document.querySelector('.shopping_cart_large__items');
 
   if (shoppingCartLarge) {
     var newImage = image.cloneNode(true);
     var item = document.createElement('div');
     item.classList.add('item');
+    item.setAttribute('item-number', attribute);
     var left = document.createElement('div');
     left.classList.add('left');
     var imageContainer = document.createElement('div');
@@ -14236,15 +14240,29 @@ function appendToShoppingCartLarge(image, name, price) {
     left.appendChild(name);
     item.appendChild(left);
     item.appendChild(price);
-    shoppingCartLarge.appendChild(item);
+    shoppingCartLarge.appendChild(item); // Add event listener for remove on swipe
+
+    var shoppingCartLargeItems = Array.from(shoppingCartLarge.querySelectorAll('.item'));
+    shoppingCartLargeItems.forEach(function (item) {
+      item.addEventListener("touchstart", startTouchHorizontal, false);
+      item.addEventListener("touchmove", moveTouchHorizontal, false);
+    });
   }
 }
 
-function updateTotalPrice(price) {
-  if (price) {
-    price = convertToNumber(price.textContent);
-    price > 0 ? totalPrice = roundToTwoDecimals(totalPrice, price) : totalPrice = totalPrice;
-    document.querySelector('.total').textContent = totalPrice;
+function updateTotalPrice() {
+  var prices = Array.from(shoppingCartLarge.querySelectorAll('.item__product-price'));
+
+  if (prices.length > 0) {
+    var pricesArray = prices.map(function (item) {
+      return convertToNumber(item.textContent);
+    });
+    var total = roundToTwoDecimals(pricesArray.reduce(function (a, b) {
+      return a + b;
+    }));
+    document.querySelector('.total').textContent = total;
+  } else {
+    document.querySelector('.total').textContent = '0';
   }
 }
 
@@ -14253,67 +14271,101 @@ function convertToNumber(string) {
   return number;
 }
 
-function roundToTwoDecimals(numberOne, numberTwo) {
-  var roundedNumber = Math.round((numberOne + numberTwo + Number.EPSILON) * 100) / 100;
+function roundToTwoDecimals(number) {
+  var roundedNumber = Math.round((number + Number.EPSILON) * 100) / 100;
   return roundedNumber;
 } // Listen for swipe events
 
 
 var shoppingCartSmall = document.querySelector(".shopping_cart_small");
 var shoppingCartLarge = document.querySelector(".shopping_cart_large");
-shoppingCartSmall.addEventListener("touchstart", startTouch, false);
-shoppingCartSmall.addEventListener("touchmove", moveTouch, false);
-shoppingCartLarge.addEventListener("touchstart", startTouch, false);
-shoppingCartLarge.addEventListener("touchmove", moveTouch, false);
-var initialX = null;
-var initialY = null;
+shoppingCartSmall.addEventListener("touchstart", startTouchVertical, false);
+shoppingCartSmall.addEventListener("touchmove", moveTouchVertical, false);
+shoppingCartLarge.addEventListener("touchstart", startTouchVertical, false);
+shoppingCartLarge.addEventListener("touchmove", moveTouchVertical, false);
+var initialXVertical = null;
+var initialYVertical = null;
 
-function startTouch(e) {
-  initialX = e.touches[0].clientX;
-  initialY = e.touches[0].clientY;
-}
+function startTouchVertical(e) {
+  initialXVertical = e.touches[0].clientX;
+  initialYVertical = e.touches[0].clientY;
+} // Show hide shopping cart large
 
-function moveTouch(e) {
-  var swipe;
 
-  if (initialX === null) {
+function moveTouchVertical(e) {
+  if (initialXVertical === null) {
     return;
   }
 
-  if (initialY === null) {
+  if (initialYVertical === null) {
     return;
   }
 
   var currentX = e.touches[0].clientX;
   var currentY = e.touches[0].clientY;
-  var diffX = initialX - currentX;
-  var diffY = initialY - currentY;
+  var diffX = initialXVertical - currentX;
+  var diffY = initialYVertical - currentY;
 
-  if (Math.abs(diffX) > Math.abs(diffY)) {
-    // sliding horizontally
-    if (diffX > 0) {
-      console.log("swiped left");
-      swipe = 'left';
-    } else {
-      console.log("swiped right");
-      swipe = 'right';
-    }
+  if (Math.abs(diffX) > Math.abs(diffY)) {// Do nothing
   } else {
     // sliding vertically
     if (diffY > 0) {
-      console.log("swiped up");
-      swipe = 'up';
       showShoppingCartLarge();
     } else {
-      console.log("swiped down");
-      swipe = 'down';
       hideShoppingCartLarge();
     }
   }
 
-  initialX = null;
-  initialY = null;
-  return swipe;
+  initialXVertical = null;
+  initialYVertical = null;
+}
+
+;
+var inititalXHorizontal = null;
+var initialYHorizontal = null;
+
+function startTouchHorizontal(e) {
+  inititalXHorizontal = e.touches[0].clientX;
+  initialYHorizontal = e.touches[0].clientY;
+} // Delete item from shopping cart and update everything
+
+
+function moveTouchHorizontal(e) {
+  if (inititalXHorizontal === null) {
+    return;
+  }
+
+  if (initialYHorizontal === null) {
+    return;
+  }
+
+  var currentX = e.touches[0].clientX;
+  var currentY = e.touches[0].clientY;
+  var diffX = inititalXHorizontal - currentX;
+  var diffY = initialYHorizontal - currentY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // sliding horizontally
+    console.log(diffX);
+
+    if (diffX > 0) {
+      var element = e.target;
+      var imageContainer = element.querySelector('.left .image-container');
+      var itemSmall = shoppingCartSmall.querySelector("[item-number=\"".concat(element.getAttribute('item-number'), "\"]"));
+      console.log(itemSmall);
+      var tl = new _all.TimelineMax();
+      tl.to(imageContainer, 0.5, {
+        backgroundColor: '#990000'
+      }).to(element, 0.5, {
+        x: '-120%'
+      }, '-=.2').call(removeElement(element)).call(removeElement(itemSmall)).call(updateTotalItems).call(updateTotalPrice);
+    } else {
+      console.log("swiped right");
+    }
+  }
+
+  inititalXHorizontal = null;
+  initialYHorizontal = null;
 }
 
 ;
@@ -14386,7 +14438,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63629" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60734" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

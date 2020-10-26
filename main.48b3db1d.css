@@ -10400,6 +10400,13 @@ body.has-no-pointer-events * {
   width: 70%;
   align-self: flex-end;
 }
+.products_overview .container .header__shopping-cart {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNNC41NTggN2w0LjcwMS00LjcwMmMuMTk5LS4xOTguNDYtLjI5OC43MjEtLjI5OC42MTMgMCAxLjAyLjUwNSAxLjAyIDEuMDI5IDAgLjI1LS4wOTIuNTA0LS4yOTkuNzExbC0zLjI2IDMuMjZoLTIuODgzem0xMi4wMDEgMGgyLjg4M2wtNC43MDEtNC43MDJjLS4xOTktLjE5OC0uNDYtLjI5OC0uNzIxLS4yOTgtLjYxMyAwLTEuMDIuNTA1LTEuMDIgMS4wMjkgMCAuMjUuMDkyLjUwNC4yOTkuNzExbDMuMjYgMy4yNnptMy43MDMgNGwtLjAxNi4wNDEtMy41OTggOC45NTloLTkuMjk2bC0zLjU5Ny04Ljk2MS0uMDE2LS4wMzloMTYuNTIzem0zLjczOC0yaC0yNHYyaC42NDNjLjUzNCAwIDEuMDIxLjMwNCAxLjI1Ni43ODRsNC4xMDEgMTAuMjE2aDEybDQuMTAyLTEwLjIxNGMuMjMzLS40ODEuNzIyLS43ODYgMS4yNTYtLjc4NmguNjQydi0yeiIvPjwvc3ZnPg==");
+  background-size: 19px auto;
+  background-position: 33%;
+  background-repeat: no-repeat;
+  position: relative;
+}
 .products_overview .items__container {
   width: 100%;
   padding-top: 1em;
