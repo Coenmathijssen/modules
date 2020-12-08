@@ -117,7 +117,10 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/gsap/gsap-core.js":[function(require,module,exports) {
+})({"../node_modules/swipe-listener/dist/swipe-listener.min.js":[function(require,module,exports) {
+var define;
+'use strict';var _extends=Object.assign||function(a){for(var b,c=1;c<arguments.length;c++)for(var d in b=arguments[c],b)Object.prototype.hasOwnProperty.call(b,d)&&(a[d]=b[d]);return a},SwipeListener=function(a,b){if(a){'undefined'!=typeof window&&function(){function a(a,b){b=b||{bubbles:!1,cancelable:!1,detail:void 0};var c=document.createEvent('CustomEvent');return c.initCustomEvent(a,b.bubbles,b.cancelable,b.detail),c}return'function'!=typeof window.CustomEvent&&void(a.prototype=window.Event.prototype,window.CustomEvent=a)}();b||(b={}),b=_extends({},{minHorizontal:10,minVertical:10,deltaHorizontal:3,deltaVertical:5,preventScroll:!1,lockAxis:!0,touch:!0,mouse:!0},b);var c=[],d=!1,e=function(){d=!0},f=function(a){d=!1,h(a)},g=function(a){d&&(a.changedTouches=[{clientX:a.clientX,clientY:a.clientY}],i(a))};b.mouse&&(a.addEventListener('mousedown',e),a.addEventListener('mouseup',f),a.addEventListener('mousemove',g));var h=function(d){var e=Math.abs,f=Math.max,g=Math.min;if(c.length){for(var h='function'==typeof TouchEvent&&d instanceof TouchEvent,j=[],k=[],l={top:!1,right:!1,bottom:!1,left:!1},m=0;m<c.length;m++)j.push(c[m].x),k.push(c[m].y);var i=j[0],n=j[j.length-1],o=k[0],p=k[k.length-1],q={x:[i,n],y:[o,p]};if(1<c.length){var r={detail:_extends({touch:h,target:d.target},q)},s=new CustomEvent('swiperelease',r);a.dispatchEvent(s)}var t=j[0]-j[j.length-1],u='none';u=0<t?'left':'right';var v,w=g.apply(Math,j),x=f.apply(Math,j);if(e(t)>=b.minHorizontal&&('left'==u?(v=e(w-j[j.length-1]),v<=b.deltaHorizontal&&(l.left=!0)):'right'==u?(v=e(x-j[j.length-1]),v<=b.deltaHorizontal&&(l.right=!0)):void 0),t=k[0]-k[k.length-1],u='none',u=0<t?'top':'bottom',w=g.apply(Math,k),x=f.apply(Math,k),e(t)>=b.minVertical&&('top'==u?(v=e(w-k[k.length-1]),v<=b.deltaVertical&&(l.top=!0)):'bottom'==u?(v=e(x-k[k.length-1]),v<=b.deltaVertical&&(l.bottom=!0)):void 0),(c=[],l.top||l.right||l.bottom||l.left)){b.lockAxis&&((l.left||l.right)&&e(i-n)>e(o-p)?l.top=l.bottom=!1:(l.top||l.bottom)&&e(i-n)<e(o-p)&&(l.left=l.right=!1));var y={detail:_extends({directions:l,touch:h,target:d.target},q)},z=new CustomEvent('swipe',y);a.dispatchEvent(z)}else{var A=new CustomEvent('swipecancel',{detail:_extends({touch:h,target:d.target},q)});a.dispatchEvent(A)}}},i=function(d){var e=d.changedTouches[0];if(c.push({x:e.clientX,y:e.clientY}),1<c.length){var f=c[0].x,g=c[c.length-1].x,h=c[0].y,i=c[c.length-1].y,j={detail:{x:[f,g],y:[h,i],touch:'function'==typeof TouchEvent&&d instanceof TouchEvent,target:d.target}},k=new CustomEvent('swiping',j),l=!0===b.preventScroll||'function'==typeof b.preventScroll&&b.preventScroll(k);l&&d.preventDefault(),a.dispatchEvent(k)}},j=!1;try{var k=Object.defineProperty({},'passive',{get:function(){j={passive:!b.preventScroll}}});window.addEventListener('testPassive',null,k),window.removeEventListener('testPassive',null,k)}catch(a){}return b.touch&&(a.addEventListener('touchmove',i,j),a.addEventListener('touchend',h)),{off:function(){a.removeEventListener('touchmove',i,j),a.removeEventListener('touchend',h),a.removeEventListener('mousedown',e),a.removeEventListener('mouseup',f),a.removeEventListener('mousemove',g)}}}};'undefined'!=typeof module&&'undefined'!=typeof module.exports?(module.exports=SwipeListener,module.exports.default=SwipeListener):'function'==typeof define&&define.amd?define([],function(){return SwipeListener}):window.SwipeListener=SwipeListener;
+},{}],"../node_modules/gsap/gsap-core.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14086,82 +14089,203 @@ TweenMaxWithCSS = gsapWithCSS.core.Tween; //BONUS EXPORTS
 
 exports.TweenMax = TweenMaxWithCSS;
 exports.default = exports.gsap = gsapWithCSS;
-},{"./gsap-core.js":"../node_modules/gsap/gsap-core.js","./CSSPlugin.js":"../node_modules/gsap/CSSPlugin.js","./Draggable.js":"../node_modules/gsap/Draggable.js","./CSSRulePlugin.js":"../node_modules/gsap/CSSRulePlugin.js","./EaselPlugin.js":"../node_modules/gsap/EaselPlugin.js","./EasePack.js":"../node_modules/gsap/EasePack.js","./MotionPathPlugin.js":"../node_modules/gsap/MotionPathPlugin.js","./PixiPlugin.js":"../node_modules/gsap/PixiPlugin.js","./ScrollToPlugin.js":"../node_modules/gsap/ScrollToPlugin.js","./ScrollTrigger.js":"../node_modules/gsap/ScrollTrigger.js","./TextPlugin.js":"../node_modules/gsap/TextPlugin.js"}],"js/index.js":[function(require,module,exports) {
+},{"./gsap-core.js":"../node_modules/gsap/gsap-core.js","./CSSPlugin.js":"../node_modules/gsap/CSSPlugin.js","./Draggable.js":"../node_modules/gsap/Draggable.js","./CSSRulePlugin.js":"../node_modules/gsap/CSSRulePlugin.js","./EaselPlugin.js":"../node_modules/gsap/EaselPlugin.js","./EasePack.js":"../node_modules/gsap/EasePack.js","./MotionPathPlugin.js":"../node_modules/gsap/MotionPathPlugin.js","./PixiPlugin.js":"../node_modules/gsap/PixiPlugin.js","./ScrollToPlugin.js":"../node_modules/gsap/ScrollToPlugin.js","./ScrollTrigger.js":"../node_modules/gsap/ScrollTrigger.js","./TextPlugin.js":"../node_modules/gsap/TextPlugin.js"}],"../node_modules/lazyload/lazyload.js":[function(require,module,exports) {
+var define;
+var global = arguments[3];
+/*!
+ * Lazy Load - JavaScript plugin for lazy loading images
+ *
+ * Copyright (c) 2007-2019 Mika Tuupola
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Project home:
+ *   https://appelsiini.net/projects/lazyload
+ *
+ * Version: 2.0.0-rc.2
+ *
+ */
+
+(function (root, factory) {
+    if (typeof exports === "object") {
+        module.exports = factory(root);
+    } else if (typeof define === "function" && define.amd) {
+        define([], factory);
+    } else {
+        root.LazyLoad = factory(root);
+    }
+}) (typeof global !== "undefined" ? global : this.window || this.global, function (root) {
+
+    "use strict";
+
+    if (typeof define === "function" && define.amd){
+        root = window;
+    }
+
+    const defaults = {
+        src: "data-src",
+        srcset: "data-srcset",
+        selector: ".lazyload",
+        root: null,
+        rootMargin: "0px",
+        threshold: 0
+    };
+
+    /**
+    * Merge two or more objects. Returns a new object.
+    * @private
+    * @param {Boolean}  deep     If true, do a deep (or recursive) merge [optional]
+    * @param {Object}   objects  The objects to merge together
+    * @returns {Object}          Merged values of defaults and options
+    */
+    const extend = function ()  {
+
+        let extended = {};
+        let deep = false;
+        let i = 0;
+        let length = arguments.length;
+
+        /* Check if a deep merge */
+        if (Object.prototype.toString.call(arguments[0]) === "[object Boolean]") {
+            deep = arguments[0];
+            i++;
+        }
+
+        /* Merge the object into the extended object */
+        let merge = function (obj) {
+            for (let prop in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+                    /* If deep merge and property is an object, merge properties */
+                    if (deep && Object.prototype.toString.call(obj[prop]) === "[object Object]") {
+                        extended[prop] = extend(true, extended[prop], obj[prop]);
+                    } else {
+                        extended[prop] = obj[prop];
+                    }
+                }
+            }
+        };
+
+        /* Loop through each object and conduct a merge */
+        for (; i < length; i++) {
+            let obj = arguments[i];
+            merge(obj);
+        }
+
+        return extended;
+    };
+
+    function LazyLoad(images, options) {
+        this.settings = extend(defaults, options || {});
+        this.images = images || document.querySelectorAll(this.settings.selector);
+        this.observer = null;
+        this.init();
+    }
+
+    LazyLoad.prototype = {
+        init: function() {
+
+            /* Without observers load everything and bail out early. */
+            if (!root.IntersectionObserver) {
+                this.loadImages();
+                return;
+            }
+
+            let self = this;
+            let observerConfig = {
+                root: this.settings.root,
+                rootMargin: this.settings.rootMargin,
+                threshold: [this.settings.threshold]
+            };
+
+            this.observer = new IntersectionObserver(function(entries) {
+                Array.prototype.forEach.call(entries, function (entry) {
+                    if (entry.isIntersecting) {
+                        self.observer.unobserve(entry.target);
+                        let src = entry.target.getAttribute(self.settings.src);
+                        let srcset = entry.target.getAttribute(self.settings.srcset);
+                        if ("img" === entry.target.tagName.toLowerCase()) {
+                            if (src) {
+                                entry.target.src = src;
+                            }
+                            if (srcset) {
+                                entry.target.srcset = srcset;
+                            }
+                        } else {
+                            entry.target.style.backgroundImage = "url(" + src + ")";
+                        }
+                    }
+                });
+            }, observerConfig);
+
+            Array.prototype.forEach.call(this.images, function (image) {
+                self.observer.observe(image);
+            });
+        },
+
+        loadAndDestroy: function () {
+            if (!this.settings) { return; }
+            this.loadImages();
+            this.destroy();
+        },
+
+        loadImages: function () {
+            if (!this.settings) { return; }
+
+            let self = this;
+            Array.prototype.forEach.call(this.images, function (image) {
+                let src = image.getAttribute(self.settings.src);
+                let srcset = image.getAttribute(self.settings.srcset);
+                if ("img" === image.tagName.toLowerCase()) {
+                    if (src) {
+                        image.src = src;
+                    }
+                    if (srcset) {
+                        image.srcset = srcset;
+                    }
+                } else {
+                    image.style.backgroundImage = "url('" + src + "')";
+                }
+            });
+        },
+
+        destroy: function () {
+            if (!this.settings) { return; }
+            this.observer.disconnect();
+            this.settings = null;
+        }
+    };
+
+    root.lazyload = function(images, options) {
+        return new LazyLoad(images, options);
+    };
+
+    if (root.jQuery) {
+        const $ = root.jQuery;
+        $.fn.lazyload = function (options) {
+            options = options || {};
+            options.attribute = options.attribute || "data-src";
+            new LazyLoad($.makeArray(this), options);
+            return this;
+        };
+    }
+
+    return LazyLoad;
+});
+
+},{}],"js/partials/animate.js":[function(require,module,exports) {
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.animateImage = void 0;
 
 var _all = require("gsap/all");
 
-var timeOut;
-var totalPrice = 0;
-var addToCartButtons = document.querySelectorAll('.item__add-to-cart');
-addToCartButtons = Array.from(addToCartButtons);
+var animateImage = function animateImage(item, image, floatingImage) {
+  console.log('joe'); // Adding the right styling
 
-if (addToCartButtons.length > 0) {
-  addToCartButtons.forEach(function (button) {
-    button.addEventListener('click', function (event) {
-      addToBasket(event.target);
-    });
-  });
-}
-
-function addToBasket(target) {
-  // Selecting the right elements (images and names of shoes) and cloning them
-  var clickedItem = target.parentNode.parentNode;
-  var image = clickedItem.querySelector('.item__image-container img');
-  var name = clickedItem.querySelector('.item__text-container .item__product-name');
-  var price = clickedItem.querySelector('.item__text-container .item__product-price');
-  var newImage = image.cloneNode(true);
-  var newName = name.cloneNode(true);
-  var newPrice = price.cloneNode(true);
-  var floatingImage = image.cloneNode(true);
-  var attribute = clickedItem.getAttribute('item-number'); // Create div, give the right class and atrribute and append the chosen image to it
-
-  var item = document.createElement('div');
-  item.classList.add('shopping_cart_small__item');
-  item.setAttribute('item-number', attribute);
-
-  _all.TweenMax.set(item, {
-    opacity: 0
-  });
-
-  item.appendChild(newImage); // Shopping cart small - The height is needed for the product overview lift up
-
-  var shoppingCartSmall = document.querySelector('.shopping_cart_small');
-  var shoppingCartSmallHeight = shoppingCartSmall.offsetHeight;
-
-  _all.TweenMax.to('.shopping_cart_large', 0.5, {
-    y: '100%',
-    ease: _all.Power2.easeOut
-  });
-
-  _all.TweenMax.to('.products_overview', 0.5, {
-    y: '-' + (shoppingCartSmallHeight - 40),
-    ease: _all.Power2.easeOut
-  }); // Wait for 4 seconds to animate shopping cart small out. Reset this timer if another item is added
-
-
-  clearTimeout(timeOut);
-  timeOut = setTimeout(function () {
-    _all.TweenMax.to('.products_overview', 0.5, {
-      y: 0,
-      ease: _all.Power2.easeOut
-    });
-  }, 4000); // Add item to shopping cart small
-
-  appendToShoppingCartSmall(item); // Add item to shopping cart large
-
-  appendToShoppingCartLarge(newImage, newName, newPrice, attribute); // update total price
-
-  updateTotalPrice(); // Animate
-
-  var fivePlus = document.querySelector('.five-plus');
-  fivePlus ? animateImage(fivePlus, image, floatingImage) : animateImage(item, image, floatingImage); // Update total items
-
-  updateTotalItems();
-}
-
-function animateImage(item, image, floatingImage) {
-  // Adding the right styling
   floatingImage.classList.add('floating-image'); // Get x and y of starting position
 
   var startViewportOffset = image.getBoundingClientRect();
@@ -14185,73 +14309,36 @@ function animateImage(item, image, floatingImage) {
     top: endTop,
     width: endWidth,
     ease: _all.Power2.easeOut
-  }).call(removeElement(floatingImage)).to(item, 0.3, {
+  }).call(function () {
+    floatingImage.remove();
+  }).to(item, 0.3, {
     opacity: 1
   }, "-=0.1");
-}
+}; // export const joe = 'hi'
 
-function appendToShoppingCartSmall(item) {
-  var shoppingCartItems = document.querySelectorAll('.shopping_cart_small__item');
-  shoppingCartItems = Array.from(shoppingCartItems);
-  var shoppingCartSmall = document.querySelector('.shopping_cart_small__items');
-  var fivePlus = document.querySelector('.five-plus'); // If there are more than 4 items, append the three dots and stop appending items
 
-  if (shoppingCartItems.length > 4 && fivePlus) {
-    item.classList.add('hidden');
-    shoppingCartSmall.appendChild(item);
-  } else if (shoppingCartItems.length < 4 && !fivePlus) {
-    shoppingCartSmall.appendChild(item);
-  } else if (shoppingCartItems.length = 4 && !fivePlus) {
-    shoppingCartSmall.insertAdjacentHTML('beforeend', "<div class=\"shopping_cart_small__item five-plus\"><div></div><div></div><div></div></div>");
-  }
-}
+exports.animateImage = animateImage;
+},{"gsap/all":"../node_modules/gsap/all.js"}],"js/partials/update-numbers.js":[function(require,module,exports) {
+"use strict";
 
-function updateTotalItems() {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateTotalPrice = exports.updateTotalItems = void 0;
+
+var updateTotalItems = function updateTotalItems() {
   var shoppingCartItems = document.querySelectorAll('.shopping_cart_small__item');
   shoppingCartItems = Array.from(shoppingCartItems);
   var total = document.querySelector('.shopping_cart_small__total');
-  total.textContent = shoppingCartItems.length;
-}
+  if (total) total.textContent = shoppingCartItems.length;
+  var totalCart = document.querySelector('.header__nav__total');
+  if (totalCart) totalCart.textContent = shoppingCartItems.length;
+};
 
-function removeElement(element) {
-  if (typeof element === "string") {
-    element = document.querySelector(element);
-  }
+exports.updateTotalItems = updateTotalItems;
 
-  return function () {
-    element.parentNode.removeChild(element);
-  };
-}
-
-function appendToShoppingCartLarge(image, name, price, attribute) {
-  var shoppingCartLarge = document.querySelector('.shopping_cart_large__items');
-
-  if (shoppingCartLarge) {
-    var newImage = image.cloneNode(true);
-    var item = document.createElement('div');
-    item.classList.add('item');
-    item.setAttribute('item-number', attribute);
-    var left = document.createElement('div');
-    left.classList.add('left');
-    var imageContainer = document.createElement('div');
-    imageContainer.classList.add('image-container');
-    imageContainer.appendChild(newImage);
-    left.appendChild(imageContainer);
-    left.appendChild(name);
-    item.appendChild(left);
-    item.appendChild(price);
-    shoppingCartLarge.appendChild(item); // Add event listener for remove on swipe
-
-    var shoppingCartLargeItems = Array.from(shoppingCartLarge.querySelectorAll('.item'));
-    shoppingCartLargeItems.forEach(function (item) {
-      item.addEventListener("touchstart", startTouchHorizontal, false);
-      item.addEventListener("touchmove", moveTouchHorizontal, false);
-    });
-  }
-}
-
-function updateTotalPrice() {
-  var prices = Array.from(shoppingCartLarge.querySelectorAll('.item__product-price'));
+var updateTotalPrice = function updateTotalPrice() {
+  var prices = Array.from(document.querySelectorAll('.shopping_cart_large__items .item__product-price'));
 
   if (prices.length > 0) {
     var pricesArray = prices.map(function (item) {
@@ -14264,7 +14351,9 @@ function updateTotalPrice() {
   } else {
     document.querySelector('.total').textContent = '0';
   }
-}
+};
+
+exports.updateTotalPrice = updateTotalPrice;
 
 function convertToNumber(string) {
   var number = parseFloat(string.replace(/,/g, '.'));
@@ -14274,105 +14363,136 @@ function convertToNumber(string) {
 function roundToTwoDecimals(number) {
   var roundedNumber = Math.round((number + Number.EPSILON) * 100) / 100;
   return roundedNumber;
-} // Listen for swipe events
-
-
-var shoppingCartSmall = document.querySelector(".shopping_cart_small");
-var shoppingCartLarge = document.querySelector(".shopping_cart_large");
-shoppingCartSmall.addEventListener("touchstart", startTouchVertical, false);
-shoppingCartSmall.addEventListener("touchmove", moveTouchVertical, false);
-shoppingCartLarge.addEventListener("touchstart", startTouchVertical, false);
-shoppingCartLarge.addEventListener("touchmove", moveTouchVertical, false);
-var initialXVertical = null;
-var initialYVertical = null;
-
-function startTouchVertical(e) {
-  initialXVertical = e.touches[0].clientX;
-  initialYVertical = e.touches[0].clientY;
-} // Show hide shopping cart large
-
-
-function moveTouchVertical(e) {
-  if (initialXVertical === null) {
-    return;
-  }
-
-  if (initialYVertical === null) {
-    return;
-  }
-
-  var currentX = e.touches[0].clientX;
-  var currentY = e.touches[0].clientY;
-  var diffX = initialXVertical - currentX;
-  var diffY = initialYVertical - currentY;
-
-  if (Math.abs(diffX) > Math.abs(diffY)) {// Do nothing
-  } else {
-    // sliding vertically
-    if (diffY > 0) {
-      showShoppingCartLarge();
-    } else {
-      hideShoppingCartLarge();
-    }
-  }
-
-  initialXVertical = null;
-  initialYVertical = null;
 }
+},{}],"js/partials/shopping-cart-large.js":[function(require,module,exports) {
+"use strict";
 
-;
-var inititalXHorizontal = null;
-var initialYHorizontal = null;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hideShoppingCartLarge = exports.showShoppingCartLarge = exports.appendToShoppingCartLarge = void 0;
 
-function startTouchHorizontal(e) {
-  inititalXHorizontal = e.touches[0].clientX;
-  initialYHorizontal = e.touches[0].clientY;
-} // Delete item from shopping cart and update everything
+var _swipeListener = _interopRequireDefault(require("swipe-listener"));
 
+var _all = require("gsap/all");
 
-function moveTouchHorizontal(e) {
-  if (inititalXHorizontal === null) {
-    return;
+var _updateNumbers = require("./update-numbers.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var body = document.querySelector('body');
+var timeOut;
+
+var appendToShoppingCartLarge = function appendToShoppingCartLarge(image, name, price, attribute) {
+  var shoppingCartLarge = document.querySelector('.shopping_cart_large__items');
+
+  if (shoppingCartLarge) {
+    var newImage = image.cloneNode(true);
+    var item = document.createElement('div');
+    item.classList.add('item');
+    item.setAttribute('item-number', attribute);
+    var left = document.createElement('div');
+    left.classList.add('left');
+    var imageContainer = document.createElement('div');
+    imageContainer.classList.add('image-container');
+    var amount = document.createElement('div');
+    amount.classList.add('quantity');
+    amount.innerHTML = "<button class=\"quantity__plus\" type=\"button\" name=\"button\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 91.28 91.25\">\n            <defs/>\n            <g data-name=\"Layer 2\">\n              <path d=\"M0 45.62a5.94 5.94 0 005.94 6h33.77v33.69a5.94 5.94 0 0011.88 0V51.57h33.75a5.94 5.94 0 100-11.88H51.59V5.94a5.94 5.94 0 00-11.88 0v33.72H6a6 6 0 00-6 5.96z\" data-name=\"Capa 1\"/>\n            </g>\n          </svg>\n        </button>\n          <input type=\"text\" name=\"name\" value=\"1\">\n          <button class=\"quantity__minus\" type=\"button\" name=\"button\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 91.25 11.88\">\n            <defs/>\n            <g data-name=\"Layer 2\">\n              <path d=\"M91.25 5.94A5.93 5.93 0 0085.31 0H5.94a5.94 5.94 0 000 11.88h79.37a5.92 5.92 0 005.94-5.94z\" data-name=\"Capa 1\"/>\n            </g>\n          </svg>\n        </button>";
+    imageContainer.appendChild(newImage);
+    left.appendChild(imageContainer);
+    left.appendChild(amount);
+    left.appendChild(name);
+    item.appendChild(left);
+    item.appendChild(price);
+    shoppingCartLarge.appendChild(item); // Add event listeners for updating amount
+
+    item.querySelector('.quantity__plus').addEventListener('click', function (event) {
+      changeAmount(event.currentTarget, 'plus');
+    }); // Add event listeners for updating amount
+
+    item.querySelector('.quantity__minus').addEventListener('click', function (event) {
+      changeAmount(event.currentTarget, 'minus');
+    }); // Add event listener for remove on swipe
+
+    var bodyWidth = body.getBoundingClientRect().width;
+
+    var shoppingCartLargeItems = _toConsumableArray(shoppingCartLarge.querySelectorAll('.item'));
+
+    shoppingCartLargeItems.forEach(function (item) {
+      (0, _swipeListener.default)(item, {
+        minHorizontal: 40
+      });
+      item.addEventListener('swipe', function (e) {
+        if (e.detail.directions.left || e.detail.directions.right) {
+          // if the right element is somehow not selected. Select the closest element with the right class
+          // let element = e.currentTarget
+          // if (!element.classList.contains('item')) element = element.closest('.item')
+          var _imageContainer = item.querySelector('.left .image-container');
+
+          var itemSmall = document.querySelector(".shopping_cart_small__items [item-number=\"".concat(item.getAttribute('item-number'), "\"]"));
+          console.log(itemSmall);
+          var tl = new _all.TimelineMax();
+
+          if (e.detail.directions.left) {
+            tl.to(item, 0.5, {
+              backgroundColor: '#990000'
+            }).to(item, 0.5, {
+              x: '-120%'
+            }, '-=.2').call(function () {
+              item.remove();
+              itemSmall.remove();
+            });
+          } else {
+            tl.to(item, 0.5, {
+              backgroundColor: '#990000'
+            }).to(item, 0.5, {
+              x: '120%'
+            }, '-=.2').call(function () {
+              if (item && itemSmall) {
+                item.remove();
+                itemSmall.remove();
+              }
+            });
+          }
+
+          tl.call(_updateNumbers.updateTotalItems).call(_updateNumbers.updateTotalPrice).to('.products_overview', 0.5, {
+            y: '-' + (document.querySelector('.shopping_cart_large').getBoundingClientRect().height - 50 - item.getBoundingClientRect().height),
+            ease: _all.Power2.easeOut
+          });
+        }
+      });
+      item.addEventListener('swiping', function (e) {
+        _all.TweenMax.to(item, {
+          x: e.detail.x[1] - e.detail.x[0]
+        });
+      });
+      item.addEventListener('swipecancel', function () {
+        _all.TweenMax.to(item, .5, {
+          x: 0
+        });
+      });
+    });
   }
+};
 
-  if (initialYHorizontal === null) {
-    return;
-  }
+exports.appendToShoppingCartLarge = appendToShoppingCartLarge;
 
-  var currentX = e.touches[0].clientX;
-  var currentY = e.touches[0].clientY;
-  var diffX = inititalXHorizontal - currentX;
-  var diffY = initialYHorizontal - currentY;
-
-  if (Math.abs(diffX) > Math.abs(diffY)) {
-    // sliding horizontally
-    console.log(diffX);
-
-    if (diffX > 0) {
-      var element = e.target;
-      var imageContainer = element.querySelector('.left .image-container');
-      var itemSmall = shoppingCartSmall.querySelector("[item-number=\"".concat(element.getAttribute('item-number'), "\"]"));
-      console.log(itemSmall);
-      var tl = new _all.TimelineMax();
-      tl.to(imageContainer, 0.5, {
-        backgroundColor: '#990000'
-      }).to(element, 0.5, {
-        x: '-120%'
-      }, '-=.2').call(removeElement(element)).call(removeElement(itemSmall)).call(updateTotalItems).call(updateTotalPrice);
-    } else {
-      console.log("swiped right");
-    }
-  }
-
-  inititalXHorizontal = null;
-  initialYHorizontal = null;
-}
-
-;
-
-function showShoppingCartLarge() {
+var showShoppingCartLarge = function showShoppingCartLarge() {
   var shoppingCartLarge = document.querySelector('.shopping_cart_large');
   var shoppingCartLargeHeight = shoppingCartLarge.offsetHeight;
+  shoppingCartLarge.classList.add('active');
 
   _all.TweenMax.to(shoppingCartLarge, 0.5, {
     y: 0,
@@ -14380,17 +14500,20 @@ function showShoppingCartLarge() {
   });
 
   _all.TweenMax.to('.products_overview', 0.4, {
-    y: '-' + (shoppingCartLargeHeight - 40),
+    y: '-' + (shoppingCartLargeHeight - 50),
     delay: 0.3,
     ease: _all.Power2.easeOut
   });
 
   clearTimeout(timeOut);
-}
+};
 
-function hideShoppingCartLarge() {
+exports.showShoppingCartLarge = showShoppingCartLarge;
+
+var hideShoppingCartLarge = function hideShoppingCartLarge() {
   var shoppingCartSmall = document.querySelector('.shopping_cart_small');
   var shoppingCartSmallHeight = shoppingCartSmall.offsetHeight;
+  document.querySelector('.shopping_cart_large').classList.remove('active');
 
   _all.TweenMax.to('.products_overview', 0.5, {
     y: '-' + (shoppingCartSmallHeight - 40),
@@ -14409,8 +14532,211 @@ function hideShoppingCartLarge() {
       ease: _all.Power2.easeOut
     });
   }, 4000);
+};
+
+exports.hideShoppingCartLarge = hideShoppingCartLarge;
+
+function changeAmount(item, action) {
+  var product = item.closest('.item');
+  var oldValue = product.querySelector('input');
+
+  if (action === 'plus') {
+    oldValue.value = (parseInt(oldValue.value) + 1).toString();
+  } else if (action === 'minus') {
+    oldValue.value = (parseInt(oldValue.value) - 1).toString();
+  }
+
+  if (oldValue.value === '0') {
+    var itemSmall = document.querySelector(".shopping_cart_small [item-number=\"".concat(product.getAttribute('item-number'), "\"]"));
+    console.log(itemSmall);
+    var tl = new _all.TimelineMax();
+    tl.to(product, 0.5, {
+      backgroundColor: '#990000'
+    }).to(product, 0.5, {
+      x: '120%'
+    }, '-=.2').call(function () {
+      if (product && itemSmall) {
+        product.remove();
+        itemSmall.remove();
+        (0, _updateNumbers.updateTotalItems)();
+        (0, _updateNumbers.updateTotalPrice)();
+      }
+    });
+  }
 }
-},{"gsap/all":"../node_modules/gsap/all.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"swipe-listener":"../node_modules/swipe-listener/dist/swipe-listener.min.js","gsap/all":"../node_modules/gsap/all.js","./update-numbers.js":"js/partials/update-numbers.js"}],"js/partials/shopping-cart-small.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hideShoppingCartSmall = exports.showShoppingCartSmall = exports.appendToShoppingCartSmall = void 0;
+
+var _all = require("gsap/all");
+
+var _shoppingCartLarge = require("./shopping-cart-large");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var timeOut;
+
+var appendToShoppingCartSmall = function appendToShoppingCartSmall(item) {
+  var shoppingCartItems = _toConsumableArray(document.querySelectorAll('.shopping_cart_small__item'));
+
+  var shoppingCartSmall = document.querySelector('.shopping_cart_small__items');
+  var fivePlus = document.querySelector('.five-plus'); // If there are more than 4 items, append the three dots and stop appending items
+
+  if (shoppingCartItems.length > 4 && fivePlus) {
+    item.classList.add('hidden');
+    shoppingCartSmall.appendChild(item);
+  } else if (shoppingCartItems.length < 4 && !fivePlus) {
+    shoppingCartSmall.appendChild(item);
+  } else if (shoppingCartItems.length = 4 && !fivePlus) {
+    shoppingCartSmall.insertAdjacentHTML('beforeend', "<div class=\"shopping_cart_small__item five-plus\"><div></div><div></div><div></div></div>");
+  }
+};
+
+exports.appendToShoppingCartSmall = appendToShoppingCartSmall;
+
+var showShoppingCartSmall = function showShoppingCartSmall() {
+  // Shopping cart small - The height is needed for the product overview lift up
+  var shoppingCartSmall = document.querySelector('.shopping_cart_small');
+  var shoppingCartSmallHeight = shoppingCartSmall.offsetHeight;
+
+  _all.TweenMax.to('.shopping_cart_large', 0.5, {
+    y: '100%',
+    ease: _all.Power2.easeOut
+  });
+
+  _all.TweenMax.to('.products_overview', 0.5, {
+    y: '-' + (shoppingCartSmallHeight - 40),
+    ease: _all.Power2.easeOut
+  }); // Wait for 4 seconds to animate shopping cart small out. Reset this timer if another item is added
+
+
+  clearTimeout(timeOut);
+  timeOut = setTimeout(function () {
+    if (document.querySelector('.shopping_cart_large').classList.contains('active')) {
+      clearTimeout(timeOut);
+    } else {
+      hideShoppingCartSmall();
+    }
+  }, 4000);
+};
+
+exports.showShoppingCartSmall = showShoppingCartSmall;
+
+var hideShoppingCartSmall = function hideShoppingCartSmall() {
+  _all.TweenMax.to('.products_overview', 0.5, {
+    y: 0,
+    ease: _all.Power2.easeOut
+  });
+};
+
+exports.hideShoppingCartSmall = hideShoppingCartSmall;
+},{"gsap/all":"../node_modules/gsap/all.js","./shopping-cart-large":"js/partials/shopping-cart-large.js"}],"js/index.js":[function(require,module,exports) {
+"use strict";
+
+var _swipeListener = _interopRequireDefault(require("swipe-listener"));
+
+var _all = require("gsap/all");
+
+var _lazyload = _interopRequireDefault(require("lazyload"));
+
+var _animate = require("./partials/animate.js");
+
+var _shoppingCartSmall = require("./partials/shopping-cart-small.js");
+
+var _shoppingCartLarge = require("./partials/shopping-cart-large.js");
+
+var _updateNumbers = require("./partials/update-numbers.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var images = document.querySelectorAll('img');
+new _lazyload.default(images);
+var body = document.querySelector('body');
+var addToCartButtons = document.querySelectorAll('.item__add-to-cart');
+addToCartButtons = Array.from(addToCartButtons);
+
+if (addToCartButtons.length > 0) {
+  addToCartButtons.forEach(function (button) {
+    button.addEventListener('click', function (event) {
+      addToBasket(event.currentTarget);
+    });
+  });
+}
+
+var shoppingCartButton = document.querySelector('.header__nav');
+
+if (shoppingCartButton) {
+  shoppingCartButton.addEventListener('click', _shoppingCartSmall.showShoppingCartSmall);
+}
+
+function addToBasket(target) {
+  // Selecting the right elements (images and names of shoes) and cloning them
+  var clickedItem = target.closest('.item');
+  var image = clickedItem.querySelector('.item__image-container img');
+  var name = clickedItem.querySelector('.item__text-container .item__product-name');
+  var price = clickedItem.querySelector('.item__text-container .item__product-price');
+  var newImage = image.cloneNode(true);
+  var newName = name.cloneNode(true);
+  var newPrice = price.cloneNode(true);
+  var floatingImage = image.cloneNode(true);
+  var attribute = clickedItem.getAttribute('item-number'); // Create div, give the right class and atrribute and append the chosen image to it
+
+  var item = document.createElement('div');
+  item.classList.add('shopping_cart_small__item');
+  item.setAttribute('item-number', attribute);
+
+  _all.TweenMax.set(item, {
+    opacity: 0
+  });
+
+  item.appendChild(newImage); // Show shopping cart small
+
+  (0, _shoppingCartSmall.showShoppingCartSmall)(); // Add item to shopping cart small
+
+  (0, _shoppingCartSmall.appendToShoppingCartSmall)(item); // Add item to shopping cart large
+
+  (0, _shoppingCartLarge.appendToShoppingCartLarge)(newImage, newName, newPrice, attribute); // update total price
+
+  (0, _updateNumbers.updateTotalPrice)(); // Animate
+
+  var fivePlus = document.querySelector('.five-plus');
+  fivePlus ? (0, _animate.animateImage)(fivePlus, image, floatingImage) : (0, _animate.animateImage)(item, image, floatingImage); // Update total items
+
+  (0, _updateNumbers.updateTotalItems)();
+} // Listen for swipe events
+
+
+var shoppingCartSmall = document.querySelector(".shopping_cart_small");
+shoppingCartSmall.addEventListener('click', _shoppingCartLarge.showShoppingCartLarge);
+(0, _swipeListener.default)(shoppingCartSmall);
+shoppingCartSmall.addEventListener('swipe', function (e) {
+  if (e.detail.directions.top) {
+    (0, _shoppingCartLarge.showShoppingCartLarge)();
+  }
+});
+var shoppingCartLargeClose = document.querySelector(".shopping_cart_large__close");
+(0, _swipeListener.default)(shoppingCartLargeClose);
+shoppingCartLargeClose.addEventListener('swipe', function (e) {
+  if (e.detail.directions.bottom) {
+    (0, _shoppingCartLarge.hideShoppingCartLarge)();
+    (0, _shoppingCartSmall.hideShoppingCartSmall)();
+  }
+});
+},{"swipe-listener":"../node_modules/swipe-listener/dist/swipe-listener.min.js","gsap/all":"../node_modules/gsap/all.js","lazyload":"../node_modules/lazyload/lazyload.js","./partials/animate.js":"js/partials/animate.js","./partials/shopping-cart-small.js":"js/partials/shopping-cart-small.js","./partials/shopping-cart-large.js":"js/partials/shopping-cart-large.js","./partials/update-numbers.js":"js/partials/update-numbers.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -14438,7 +14764,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60734" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54696" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
