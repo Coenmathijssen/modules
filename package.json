@@ -2,7 +2,7 @@
   "name": "modules",
   "version": "1.0.0",
   "description": "Internal research of specific modules",
-  "main": "index.js",
+  "main": "./src/js/index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
     "build": "parcel build src/index.html"
@@ -20,5 +20,6 @@
   "devDependencies": {
     "gsap": "^3.5.1",
     "parcel-bundler": "^1.12.4"
-  }
+  },
+  "dependencies": {}
 }
